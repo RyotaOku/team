@@ -4,9 +4,7 @@ import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
-import { getDatabase } from 'firebase/database';
 
-// Firebaseプロジェクトの設定
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
     authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -17,10 +15,14 @@ const firebaseConfig = {
     databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
 };
 
-// Firebase初期化
-const app = initializeApp(firebaseConfig);
+// Firebaseの初期化は1回のみ
+let firebaseApp;
+if (typeof window !== 'undefined') {
+    firebaseApp = initializeApp(firebaseConfig);
+}
 
-export const auth = getAuth(app);
-export const db = getFirestore(app);
-export const storage = getStorage(app);
-export const database = getDatabase(app);
+const auth = firebaseApp ? getAuth(firebaseApp) : null;
+const db = firebaseApp ? getFirestore(firebaseApp) : null;
+const storage = firebaseApp ? getStorage(firebaseApp) : null;
+
+export { firebaseApp, auth, db, storage };
