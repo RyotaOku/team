@@ -21,9 +21,27 @@ function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: numbe
     return R * c; // 距離 (km)
 }
 
+
+type Location = {
+    latitude: number;
+    longitude: number;
+    timestamp: string; // ISO形式の日時文字列
+};
+
+// ユーザー情報型
+type User = {
+    location?: Location; // ユーザーの位置情報（オプショナル）
+    instagramName?: string; // ユーザー名（オプショナル）
+};
+
+type Users = Record<string, User>
+
 export default function Home() {
     const [active, setActive] = useState<"home" | "list" | "memory" | "account">("home");
     const [currentLocation, setCurrentLocation] = useState<{ latitude: number; longitude: number } | null>(null);
+    if (currentLocation) {
+        console.log("現在地:", currentLocation);
+    }
 
     useEffect(() => {
         const fetchAndCheckNearbyUsers = () => {
@@ -51,8 +69,8 @@ export default function Home() {
                         const snapshot = await get(child(dbRef, "users"));
 
                         if (snapshot.exists()) {
-                            const users = snapshot.val();
-                            const nearbyUsers = Object.entries(users).filter(([key, user]: [string, any]) => {
+                            const users: Users = snapshot.val(); // Firebaseから取得したデータを`Users`型として利用
+                            const nearbyUsers = Object.entries(users).filter(([key, user]: [string, User]) => {
                                 if (!user.location || key === userId) return false; // 自分自身を除外
 
                                 const { latitude: otherLat, longitude: otherLon, timestamp: otherTimestamp } = user.location;
@@ -70,7 +88,7 @@ export default function Home() {
                             });
 
                             // コンソールに近くのユーザーを表示
-                            nearbyUsers.forEach(([key, user]: [string, any]) => {
+                            nearbyUsers.forEach(([, user]: [string, User]) => {
                                 console.log(`近くに人がいた！：${user.instagramName || "Unknown User"}`);
                             });
                         } else {

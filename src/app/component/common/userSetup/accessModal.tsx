@@ -1,12 +1,18 @@
 import style from '@/app/styles/startPage/request.module.css'
+type state = {
+    flag: boolean,
+    page: number
+}
 
 // Propsの型定義
 type Props = {
     access: string, // アクセスを求めているリソースの名前(例：位置情報・マイクなど)
     text: string, // モーダルに表示する追加テキスト
     modalState: { flag: boolean, page: number }, // モーダルの状態を管理するオブジェクト
-    setModalState: React.Dispatch<React.SetStateAction<any>>
+    setModalState: React.Dispatch<React.SetStateAction<state>>
 }
+
+
 
 export default function AccessModal(props: Props) {
     return (
