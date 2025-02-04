@@ -237,56 +237,64 @@ function HomePage() {
                 </div>
 
                 {items.map((item, index) => (
-                    <TinderCard
-                        key={item.id}
-                        onSwipe={(dir) => swiped(dir, index)}
-                        preventSwipe={["up", "down"]}
-                        className="absolute w-full h-full bg-[#000] mt-24"
+                    <div
+                        className="absolute w-full h-full"
                         style={{
-                            zIndex: items.length - index, // カードの順序をz-indexでコントロール
+                            zIndex: items.length - index,
                         }}
+                        key={item.id}
                     >
-                        {/* カードコンテンツ */}
-                        <div
-                            className="relative w-full mt-6 rounded-2xl text-xs shadow-lg"
-                            style={{
-                                boxShadow: "1px -1px 12px 0px rgba(255, 255, 255, 0.1)",
-                            }}
+                        <TinderCard
+                            key={item.id}
+                            onSwipe={(dir) => swiped(dir, index)}
+                            preventSwipe={["up", "down"]}
+                            className="absolute w-full h-full bg-[#000] mt-24"
+                        // style={{
+                        //     zIndex: items.length - index, // カードの順序をz-indexでコントロール
+                        // }}
                         >
-                            {/* ユーザー情報 */}
-                            <div className="flex items-center gap-2 p-4 text-[10px]">
-                                <Image src="/images/icon.svg" alt="User Icon" width={40} height={40} />
-                                <div>
-                                    <p>{item.username}</p>
-                                    <p>{item.location}</p>
+                            {/* カードコンテンツ */}
+                            <div
+                                className="relative w-full mt-6 rounded-2xl text-xs shadow-lg"
+                                style={{
+                                    boxShadow: "1px -1px 12px 0px rgba(255, 255, 255, 0.1)",
+                                }}
+                            >
+                                {/* ユーザー情報 */}
+                                <div className="flex items-center gap-2 p-4 text-[10px]">
+                                    <Image src="/images/icon.svg" alt="User Icon" width={40} height={40} />
+                                    <div>
+                                        <p>{item.username}</p>
+                                        <p>{item.location}</p>
+                                    </div>
+                                    <p className="ml-auto">たった今</p>
                                 </div>
-                                <p className="ml-auto">たった今</p>
+
+                                {/* 商品画像 */}
+                                <Image
+                                    src={item.image}
+                                    alt={item.product}
+                                    width={380}
+                                    height={350}
+                                    className="object-contain mx-auto"
+                                />
+
+                                {/* 商品情報 */}
+                                <div className="p-4">
+                                    <p className="font-semibold">{item.product}</p>
+                                    <p className="font-bold text-base mt-2">
+                                        <span>{item.price}</span>
+                                    </p>
+                                </div>
                             </div>
 
-                            {/* 商品画像 */}
-                            <Image
-                                src={item.image}
-                                alt={item.product}
-                                width={380}
-                                height={350}
-                                className="object-contain mx-auto"
-                            />
-
-                            {/* 商品情報 */}
-                            <div className="p-4">
-                                <p className="font-semibold">{item.product}</p>
-                                <p className="font-bold text-base mt-2">
-                                    <span>{item.price}</span>
-                                </p>
+                            {/* 下部のナビゲーション */}
+                            <div className="w-full px-2 mt-2 flex justify-between items-center">
+                                <p className="underline text-xs">一つ前に戻る</p>
+                                <Image src="/images/Spotify.svg" alt="Spotify Logo" width={150} height={150} />
                             </div>
-                        </div>
-
-                        {/* 下部のナビゲーション */}
-                        <div className="w-full px-2 mt-2 flex justify-between items-center">
-                            <p className="underline text-xs">一つ前に戻る</p>
-                            <Image src="/images/Spotify.svg" alt="Spotify Logo" width={150} height={150} />
-                        </div>
-                    </TinderCard>
+                        </TinderCard>
+                    </div>
                 ))}
 
                 {items.length === 0 && (
