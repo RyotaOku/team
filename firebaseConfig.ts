@@ -1,3 +1,5 @@
+'use client'
+
 // Firebase SDK の各機能をインポート
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
