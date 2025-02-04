@@ -1,7 +1,6 @@
 'use client'
 import Image from 'next/image';
 import UnderTab from './component/startPage/underTab';
-import style from './styles/startPage/main.module.css';
 
 export default function StartPage() {
 
@@ -14,24 +13,6 @@ export default function StartPage() {
 
       {/* <button onClick={() => setCount(count + 1)} className={style.nextButton}></button> */}
       <UnderTab />
-    </div>
-  );
-}
-
-type TitleTextProps = {
-  mainTitle: string;
-  subTitle: string;
-  secondTitle: string;
-};
-
-export function TitleText({ mainTitle, subTitle, secondTitle }: TitleTextProps) {
-  return (
-    <div className={`${style.titleWrap} font-bold`}>
-      <h1 className='text-2xl'>
-        <span className='text-5xl whitespace-nowrap block pb-0'>{mainTitle}</span><br />
-        <span className='block'>{subTitle}</span><br />
-        <span className='block'>{secondTitle}</span>
-      </h1>
     </div>
   );
 }
