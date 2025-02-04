@@ -180,7 +180,7 @@ export default function CreateAccount() {
 }
 
 
-export function WelcomePage(props: WelcomePageProps) {
+function WelcomePage(props: WelcomePageProps) {
     const [animationComplete, setAnimationComplete] = useState(false);
     useEffect(() => {
         const timer = setTimeout(() => {
