@@ -11,7 +11,8 @@
   "dependencies": {
     "@react-spring/web": "^9.7.5",
     "axios": "^1.7.7",
-    "firebase": "^11.0.1",
+    "firebase": "^11.2.0",
+    "firebase-tools": "^13.29.3",
     "js-cookie": "^3.0.5",
     "next": "14.2.15",
     "primereact": "^10.8.4",
